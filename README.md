@@ -1,4 +1,5 @@
 Django WebSocket Chat Application
+
 This is a real-time chat application built using Django, Channels, and WebSockets. It allows users to join or create chat rooms, select groups created by an admin, and communicate with others in real-time. The application features a responsive UI and persistent message storage in a database.
 Features
 
@@ -7,7 +8,7 @@ Room Management: Admins can create chat rooms, and users can join existing rooms
 Persistent Storage: Messages are saved in the database with timestamps and user information.
 Responsive Design: The UI is optimized for both desktop and mobile devices.
 User Identification: Users set a username before chatting, stored locally for convenience.
-Connection Status: A status indicator shows WebSocket connection state.
+Connection Status: A status indicator shows WebSocket connection state
 Error Handling: Robust logging and error handling for WebSocket operations.
 
 Tech Stack
@@ -15,8 +16,7 @@ Tech Stack
 Backend: Django, Django Channels
 WebSocket: ASGI with Channels
 Frontend: HTML, CSS, JavaScript
-Database: SQLite (default, configurable to others like PostgreSQL)
-Dependencies: Managed via requirements.txt
+Database: PostgreSQL
 
 Prerequisites
 
@@ -74,7 +74,7 @@ Security: Ensure HTTPS in production for secure WebSocket connections (wss://).
 Scalability: Use a production-ready ASGI server like Daphne or Uvicorn.
 
 Contributing
-
+.
 Fork the repository.
 Create a feature branch (git checkout -b feature-name).
 Commit your changes (git commit -m "Add feature").
