@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat Xonalari</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            max-width: 600px;
+            width: 90%;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+            font-weight: 300;
+        }
+
+        .room-form {
+            margin-bottom: 30px;
+        }
+
+        .input-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        #room-name-input {
+            flex: 1;
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+
+        #room-name-input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        #room-name-submit {
+            padding: 15px 30px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: transform 0.2s ease;
+        }
+
+        #room-name-submit:hover {
+            transform: translateY(-2px);
+        }
+
+        .rooms-list {
+            margin-top: 30px;
+        }
+
+        .rooms-list h2 {
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 1.5em;
+        }
+
+        .room-item {
+            display: block;
+            padding: 15px 20px;
+            background: #f8f9fa;
+            border: none;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            text-decoration: none;
+            color: #333;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .room-item:hover {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            transform: translateX(10px);
+        }
+
+        .no-rooms {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            padding: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+                margin: 20px;
+            }
+
+            h1 {
+                font-size: 2em;
+            }
+
+            .input-group {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>💬 Chat Xonalari</h1>
+
+        <div class="room-form">
+            <div class="input-group">
+                <input id="room-name-input" type="text" placeholder="Xona nomini kiriting..." required>
+                <button id="room-name-submit">Kirish</button>
+            </div>
+        </div>
+
+        <div class="rooms-list">
+            <h2>Mavjud Xonalar:</h2>
+            {% if rooms %}
+                {% for room in rooms %}
+                    <a href="/chat/{{ room.name }}/" class="room-item">
+                        🏠 {{ room.name }}
+                        <small style="float: right; opacity: 0.7;">
+                            {{ room.created_at|date:"d.m.Y H:i" }}
+                        </small>
+                    </a>
+                {% endfor %}
+            {% else %}
+                <div class="no-rooms">
+                    Hozircha xonalar yo'q. Yangi xona yarating!
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <script>
+        document.querySelector('#room-name-input').focus();
+
+        document.querySelector('#room-name-input').onkeyup = function(e) {
+            if (e.keyCode === 13) {  // Enter key
+                document.querySelector('#room-name-submit').click();
+            }
+        };
+
+        document.querySelector('#room-name-submit').onclick = function(e) {
+            var roomName = document.querySelector('#room-name-input').value;
+            if (roomName.trim() === '') {
+                alert('Iltimos, xona nomini kiriting!');
+                return;
+            }
+            window.location.pathname = '/chat/' + roomName + '/';
+        };
+    </script>
+</body>
+</html>
